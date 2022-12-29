@@ -22,6 +22,8 @@ import { fetchComments } from '../features/comments/commentsSlice';
 import ReservationScreen from './ReservationScreen';
 import FavoritesScreen from './FavoritesScreen';
 import LoginScreen from './LoginScreen';
+import { getFocusedRouteNameFromRoute } from '@react-navigation/core';
+
 
 
 
@@ -189,10 +191,16 @@ const LoginNavigator = () => {
             <Stack.Screen
                 name='Login'
                 component={LoginScreen}
-                options={({ navigation }) => ({
+                options={({ navigation, route }) => ({
+                    headerTitle: getFocusedRouteNameFromRoute(route),
                     headerLeft: () => (
                         <Icon
-                            name='sign-in'
+                            name={
+                                getFocusedRouteNameFromRoute(route) ===
+                                    'Register'
+                                    ? 'user-plus'
+                                    : 'sign-in'
+                            }
                             type='font-awesome'
                             iconStyle={styles.stackIcon}
                             onPress={() => navigation.toggleDrawer()}
